@@ -1,0 +1,17 @@
+{
+  "name": "agents-md-link",
+  "version": "0.1.0",
+  "description": "Link one user-level AGENTS.md into local AI coding tools",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "agents-md-link": "./bin/agents-md-link.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}
