@@ -95,6 +95,17 @@ npm test
 
 Zero runtime dependencies, Node.js 20+, ESM.
 
+## Releasing
+
+Bump `version` in `package.json` and commit, then tag and push:
+
+```bash
+git tag v0.1.2
+git push origin v0.1.2
+```
+
+The tag triggers `.github/workflows/publish.yml`, which publishes to npm through trusted publishing.
+
 ## Optional skill
 
 `skills/agents-md-link/` is a thin, manually invoked skill that calls the repository CLI. From the repository root, install it with a junction (PowerShell, no admin required):
