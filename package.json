@@ -1,6 +1,6 @@
 {
   "name": "agents-md-link",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Manage your global AGENTS.md in one place.",
   "type": "module",
   "bin": {
