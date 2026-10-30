@@ -93,23 +93,12 @@ Project-level files are outside this tool. If a repo repeats global rules, each 
 
 ## Installing for others
 
-Share the source directory, then:
-
 ```bash
-cd agents-md-link
-npm install -g .
+npm install -g agents-md-link
 agents-md-link install
 ```
 
-Or build a tarball:
-
-```bash
-npm pack
-# send agents-md-link-0.1.0.tgz
-npm install -g ./agents-md-link-0.1.0.tgz
-```
-
-The package name `agents-md-sync` is already taken on npm, so this project uses `agents-md-link`. The package is still marked `"private": true`; remove that before publishing.
+Or from a clone, `npm install -g .`. The npm package name is `agents-md-link`.
 
 ## Development
 
