@@ -1,4 +1,5 @@
 import assert from 'node:assert/strict';
+import path from 'node:path';
 import { after, before, test } from 'node:test';
 import {
   loadConfig,
@@ -51,5 +52,5 @@ test('invalid config fields are rejected', () => {
 
 test('source must stay under ~/.agents', () => {
   assert.throws(() => sourcePath(home, '../outside.md'), /must not escape/);
-  assert.throws(() => sourcePath(home, 'C:\\outside.md'), /relative path/);
+  assert.throws(() => sourcePath(home, path.resolve(home, 'outside.md')), /relative path/);
 });
