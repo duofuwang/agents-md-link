@@ -653,7 +653,7 @@ export async function runStatus({ home, flags }) {
   return { exitCode: ok ? 0 : 1, result: plan };
 }
 
-export async function runSync({ home, flags, prompter }) {
+export async function runLink({ home, flags, prompter }) {
   const interactive = Boolean(prompter) && !flags.yes && !flags.dryRun;
   const loaded = await loadConfig(home);
   if (!loaded.exists || selectedNames(loaded.config).length === 0) {

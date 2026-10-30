@@ -2,7 +2,7 @@ import { parseArgs } from 'node:util';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { runInstall, runStatus, runSync, runUninstall } from './apply.js';
+import { runInstall, runStatus, runLink, runUninstall } from './apply.js';
 import { LINK_MODES } from './config.js';
 import { createPrompter, isInteractive, PromptError } from './prompt.js';
 
@@ -18,7 +18,7 @@ Link one user-level AGENTS.md into local AI coding tools.
 Usage:
   agents-md-link install       Select tools and install or migrate (alias: add)
   agents-md-link status        Show status
-  agents-md-link sync          Repair links, broken links and copies
+  agents-md-link link          Repair links, broken links and copies
   agents-md-link uninstall     Remove selected targets
 
 Interaction:
@@ -43,7 +43,7 @@ Advanced options:
   -v, --version          Version
 
 Source: ~/.agents/AGENTS.md
-Config: ~/.agents/agents-sync.json`;
+Config: ~/.agents/agents-link.json`;
 }
 
 function parse(argv) {
@@ -105,7 +105,7 @@ function makeFlags(values) {
 function needsPrompter(command, flags) {
   if (flags.yes || flags.dryRun || flags.json) return false;
   if (!isInteractive()) return false;
-  return command === 'install' || command === 'sync' || command === 'uninstall';
+  return command === 'install' || command === 'link' || command === 'uninstall';
 }
 
 export async function main(argv = process.argv.slice(2)) {
@@ -129,7 +129,7 @@ export async function main(argv = process.argv.slice(2)) {
   }
 
   const normalized = command === 'add' ? 'install' : command;
-  if (!['install', 'status', 'sync', 'uninstall'].includes(normalized)) {
+  if (!['install', 'status', 'link', 'uninstall'].includes(normalized)) {
     console.error(`Error: unknown command ${command}`);
     console.error('Run agents-md-link --help for usage.');
     return 2;
@@ -183,7 +183,7 @@ export async function main(argv = process.argv.slice(2)) {
     let result;
     if (normalized === 'install') result = await runInstall({ home, flags, prompter });
     else if (normalized === 'status') result = await runStatus({ home, flags });
-    else if (normalized === 'sync') result = await runSync({ home, flags, prompter });
+    else if (normalized === 'link') result = await runLink({ home, flags, prompter });
     else result = await runUninstall({ home, flags, prompter });
     return result?.exitCode ?? 0;
   } catch (error) {

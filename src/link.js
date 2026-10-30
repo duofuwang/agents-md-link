@@ -86,7 +86,7 @@ export async function inspectTarget(targetPath, sourcePath) {
 
 export async function symlinkCapability() {
   if (symlinkCapabilityCache !== undefined) return symlinkCapabilityCache;
-  const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'agents-md-sync-probe-'));
+  const directory = await fs.mkdtemp(path.join(os.tmpdir(), 'agents-md-link-probe-'));
   const target = path.join(directory, 'target.txt');
   const link = path.join(directory, 'link.txt');
   try {

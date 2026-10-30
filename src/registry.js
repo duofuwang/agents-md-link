@@ -3,8 +3,8 @@ import path from 'node:path';
 
 export const SOURCE_DIR = '.agents';
 export const SOURCE_FILE = 'AGENTS.md';
-export const CONFIG_FILE = 'agents-sync.json';
-export const BACKUP_ROOT = path.join('.agents-md-sync', 'backups');
+export const CONFIG_FILE = 'agents-link.json';
+export const BACKUP_ROOT = path.join('.agents-md-link', 'backups');
 
 export const TARGETS = [
   {
@@ -45,7 +45,7 @@ export const TARGETS = [
   {
     name: 'qoder',
     label: 'Qoder CN',
-    relPath: '.qoder-cn/rules/agents-md-sync.md',
+    relPath: '.qoder-cn/rules/agents-md-link.md',
     detectPath: '.qoder-cn',
     preselect: true,
     rulesDir: '.qoder-cn/rules',

@@ -21,7 +21,7 @@ Supported: `claude`, `codex`, `gemini`, `copilot`, `qoder`, `opencode`.
 ```bash
 node run.js status
 node run.js install -a claude,codex --yes
-node run.js sync --yes
+node run.js link --yes
 node run.js uninstall -a copilot --yes
 ```
 

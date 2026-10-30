@@ -40,6 +40,21 @@ test('status is clean after install and uninstall works', async () => {
   assert.equal(await quiet(() => main(['status', '--home', home, '--json'])), 0);
 });
 
+test('link command runs and the old sync command is rejected', async () => {
+  const other = await makeHome();
+  try {
+    await put(other, '.claude/CLAUDE.md', '# Other\n');
+    assert.equal(
+      await quiet(() => main(['install', '--home', other, '-a', 'claude', '--adopt', '--yes'])),
+      0,
+    );
+    assert.equal(await quiet(() => main(['link', '--home', other, '--yes'])), 0);
+    assert.equal(await quiet(() => main(['sync', '--home', other, '--yes'])), 2);
+  } finally {
+    await cleanup(other);
+  }
+});
+
 test('invalid options exit with usage code', async () => {
   assert.equal(await quiet(() => main(['install', '--home', home, '--mode', 'wat'])), 2);
   assert.equal(

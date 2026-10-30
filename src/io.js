@@ -82,20 +82,20 @@ export function contentEquals(a, b) {
 }
 
 export function templateSource() {
-  return '# AGENTS.md\n\n<!-- agents-md-sync:template -->\n';
+  return '# AGENTS.md\n\n<!-- agents-md-link:template -->\n';
 }
 
 export function isTemplateOnly(text) {
   if (!text) return true;
   const stripped = normalizeText(text)
     .replace(/^#\s*AGENTS\.md\s*/i, '')
-    .replace(/<!--\s*agents-md-sync:template\s*-->/gi, '')
+    .replace(/<!--\s*agents-md-link:template\s*-->/gi, '')
     .trim();
   return stripped === '';
 }
 
 export const MANAGED_COPY_HEADER =
-  '<!-- agents-md-sync: generated from ~/.agents/AGENTS.md; do not edit -->';
+  '<!-- agents-md-link: generated from ~/.agents/AGENTS.md; do not edit -->';
 
 export function managedCopy(sourceText) {
   return `${MANAGED_COPY_HEADER}\n\n${normalizeText(sourceText).trimEnd()}\n`;

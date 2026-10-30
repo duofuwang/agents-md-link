@@ -3,7 +3,7 @@ import os from 'node:os';
 import path from 'node:path';
 
 export async function makeHome() {
-  return mkdtemp(path.join(os.tmpdir(), 'agents-md-sync-test-'));
+  return mkdtemp(path.join(os.tmpdir(), 'agents-md-link-test-'));
 }
 
 export async function put(home, relative, content) {

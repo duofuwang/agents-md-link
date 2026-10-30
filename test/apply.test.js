@@ -3,7 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import test from 'node:test';
 import { loadConfig } from '../src/config.js';
-import { runInstall, runStatus, runSync, runUninstall } from '../src/apply.js';
+import { runInstall, runStatus, runLink, runUninstall } from '../src/apply.js';
 import { inspectTarget } from '../src/link.js';
 import { cleanup, makeHome, put, quiet } from '../support/fixture.js';
 
@@ -66,7 +66,7 @@ test('broken link is repaired with relink and can be uninstalled', async () => {
     await fs.writeFile(gemini, 'independent\n');
     const broken = await quiet(() => runStatus({ home, flags: flags({ json: true }) }));
     assert.equal(broken.exitCode, 1);
-    const repaired = await quiet(() => runSync({ home, flags: flags({ relink: true }), prompter: null }));
+    const repaired = await quiet(() => runLink({ home, flags: flags({ relink: true }), prompter: null }));
     assert.equal(repaired.exitCode, 0);
     const source = path.join(home, '.agents', 'AGENTS.md');
     assert.equal((await inspectTarget(gemini, source)).kind, 'hardlink');
@@ -97,13 +97,13 @@ test('differing files require --from and back up the losing file', async () => {
     const source = path.join(home, '.agents', 'AGENTS.md');
     assert.match(await fs.readFile(source, 'utf8'), /# Claude/);
     assert.match(await fs.readFile(path.join(home, '.codex', 'AGENTS.md'), 'utf8'), /# Claude/);
-    const backups = path.join(home, '.agents-md-sync', 'backups');
+    const backups = path.join(home, '.agents-md-link', 'backups');
     const files = await fs.readdir(backups, { recursive: true });
     assert.ok(files.some((file) => String(file).includes('codex-AGENTS.md')));
   });
 });
 
-test('copy mode persists and sync updates the copy', async () => {
+test('copy mode persists and link updates the copy', async () => {
   await withHome(async (home) => {
     const claude = await put(home, '.claude/CLAUDE.md', '# Copy\n');
     await quiet(() =>
@@ -114,8 +114,8 @@ test('copy mode persists and sync updates the copy', async () => {
     assert.match(await fs.readFile(claude, 'utf8'), /generated from/);
     const source = path.join(home, '.agents', 'AGENTS.md');
     await fs.appendFile(source, '- later\n');
-    const synced = await quiet(() => runSync({ home, flags: flags({ mode: null }), prompter: null }));
-    assert.equal(synced.exitCode, 0);
+    const linked = await quiet(() => runLink({ home, flags: flags({ mode: null }), prompter: null }));
+    assert.equal(linked.exitCode, 0);
     assert.match(await fs.readFile(claude, 'utf8'), /later/);
     const status = await quiet(() => runStatus({ home, flags: flags({ json: true }) }));
     assert.equal(status.exitCode, 0);

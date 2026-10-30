@@ -68,10 +68,10 @@ test('duplicate rule files are reported and the managed rule is skipped', async 
   await withHome(async (home) => {
     const source = await put(home, '.agents/AGENTS.md', '# Rules\n');
     await put(home, '.qoder-cn/rules/dup.md', '# Rules\n');
-    await createLink(source, `${home}/.qoder-cn/rules/agents-md-sync.md`, 'hardlink');
+    await createLink(source, `${home}/.qoder-cn/rules/agents-md-link.md`, 'hardlink');
     const plan = await buildPlan({ home, config: configWith(['qoder']) });
     assert.ok(plan.additionalRules.some((rule) => rule.duplicate));
-    assert.ok(!plan.additionalRules.some((rule) => rule.path.endsWith('agents-md-sync.md')));
+    assert.ok(!plan.additionalRules.some((rule) => rule.path.endsWith('agents-md-link.md')));
     assert.ok(plan.warnings.some((warning) => warning.type === 'duplicate-rule'));
     const qoder = plan.targets.find((target) => target.name === 'qoder');
     assert.equal(qoder.state, 'hardlinked');
