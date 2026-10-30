@@ -1,7 +1,7 @@
 {
   "name": "agents-md-link",
   "version": "0.1.1",
-  "description": "Link one user-level AGENTS.md into local AI coding tools",
+  "description": "Manage your global AGENTS.md in one place.",
   "type": "module",
   "bin": {
     "agents-md-link": "./bin/agents-md-link.js"

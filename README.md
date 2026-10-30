@@ -1,6 +1,6 @@
 # agents-md-link
 
-Link one user-level `AGENTS.md` into the local config files of multiple AI coding tools. User-level only: it never reads or writes project-level `AGENTS.md`, `CLAUDE.md` or `GEMINI.md`.
+Manage your global `AGENTS.md` in one place. User-level only: it never reads or writes project-level `AGENTS.md`, `CLAUDE.md` or `GEMINI.md`.
 
 - Source: `~/.agents/AGENTS.md`
 - Config: `~/.agents/agents-link.json`
